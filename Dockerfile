@@ -28,6 +28,7 @@ RUN command -v curl \
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh \
     && install -m 0755 /home/kasm-user/.local/bin/uv /usr/local/bin/uv \
     && install -m 0755 /home/kasm-user/.local/bin/uvx /usr/local/bin/uvx \
+    && chown -R kasm-user:kasm-user /home/kasm-user \
     && uv --version
 
 RUN set -eux; \
