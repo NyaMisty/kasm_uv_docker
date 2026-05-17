@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -x
 set -euo pipefail
 
 if command -v desktop_ready >/dev/null 2>&1; then
