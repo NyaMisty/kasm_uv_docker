@@ -24,11 +24,14 @@ RUN apt-get update \
 
 RUN command -v curl \
     && curl --version
+    
+ENV HOME /home/kasm-user
+WORKDIR $HOME
+RUN mkdir -p $HOME && chown -R 1000:0 $HOME
 
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh \
-    && install -m 0755 /home/kasm-user/.local/bin/uv /usr/local/bin/uv \
-    && install -m 0755 /home/kasm-user/.local/bin/uvx /usr/local/bin/uvx \
-    && chown -R kasm-user:kasm-user /home/kasm-user \
+    && install -m 0755 $HOME/.local/bin/uv /usr/local/bin/uv \
+    && install -m 0755 $HOME/.local/bin/uvx /usr/local/bin/uvx \
     && uv --version
 
 RUN set -eux; \
@@ -55,6 +58,8 @@ RUN set -eux; \
     chmod +x /usr/local/bin/gost; \
     rm -f /tmp/gost.tar.gz; \
     gost -V
+
+RUN chown -R 1000:0 $HOME
 
 COPY start-app.sh /dockerstartup/custom_startup.sh
 RUN chmod +x /dockerstartup/custom_startup.sh
