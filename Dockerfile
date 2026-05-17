@@ -20,6 +20,8 @@ RUN apt-get update \
         tar \
         unzip \
         wget \
+        sudo \
+    && echo 'kasm-user ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
     && rm -rf /var/lib/apt/lists/*
 
 RUN command -v curl \
